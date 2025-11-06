@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday, Bestie</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #fff 0%, #ffe6f2 100%);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(255, 105, 180, 0.25);
+  width: 90%;
+  max-width: 640px;
+  text-align: center;
+  padding: 45px 35px 55px;
+}
+h1 {
+  margin-top: 0;
+  font-size: 36px;
+  color: #ff6fa8;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #444;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+button {
+  background: #ff8ec2;
+  border: none;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 25px;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.25);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+button:hover { background: #ff74b3; }
+button:active { transform: scale(0.97); }
+input[type=text] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+input[type=text]:focus {
+  border-color: #ff9fce;
+  outline: none;
+}
+img {
+  max-width: 320px;
+  border-radius: 10px;
+  margin: 25px 0;
+}
+ul {
+  text-align: left;
+  display: inline-block;
+  margin: 10px 0 0 0;
+  padding-left: 20px;
+}
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.confetti span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ff6fa8;
+  opacity: 0.8;
+  animation: fall 3s linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-10px) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(720deg); }
+}
+.checkbox-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  text-align: left;
+  margin-top: 15px;
+}
+.final {
+  font-weight: 500;
+  font-size: 18px;
+  color: #444;
+  line-height: 1.6;
+}
+.heart {
+  color: #ff6fa8;
+  font-size: 32px;
+  animation: beat 1s infinite;
+}
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+</style>
+</head>
+<body>
+<div class="confetti" id="confetti"></div>
+<div class="card" id="app"></div>
+
+<script>
+const app=document.getElementById('app');
+function show(html){app.innerHTML=html;window.scrollTo(0,0);}
+function confettiBurst(){
+  const c=document.getElementById('confetti');
+  c.innerHTML='';
+  for(let i=0;i<40;i++){
+    const s=document.createElement('span');
+    s.style.left=Math.random()*100+'%';
+    s.style.backgroundColor=['#ffb3d9','#ffcce0','#ff80bf','#ffd6eb'][Math.floor(Math.random()*4)];
+    s.style.animationDelay=(Math.random()*3)+'s';
+    s.style.width=s.style.height=(5+Math.random()*8)+'px';
+    c.appendChild(s);
+  }
+  setTimeout(()=>c.innerHTML='',3500);
+}
+
+/* === СТАРТ === */
+function start(){
+show(`
+<h1>Happy Birthday, Bestie</h1>
+<p style="font-size:17px;">Це міні-вікторина — треба буде трохи подумати і помріяти.<br>
+Якщо виникнуть технічні труднощі — звертайся до розробників (тобто до нас).<br>
+Немає</p>
+<h3 style="margin-bottom:10px;">Правила:</h3>
+<ul style="font-size:16px;">
+<li>Відповідай українською мовою.</li>
+<li>Не має значення, чи з великої, чи з маленької літери.</li>
+<li>У дужках іноді будуть підказки.</li>
+</ul>
+<img src="https://media0.giphy.com/media/F2CZEhSLDnYdi/giphy.gif" alt="">
+<button onclick="q1()">Почати</button>
+`);
+}
+
+/* === ПИТАННЯ === */
+function q1(){
+show(`
+<h2>1. Скільки сьогодні тобі виповнюється рочків? (цифрами)</h2>
+<input type="text" id="a1" placeholder="Твоя відповідь">
+<img src="https://media4.giphy.com/media/SRO0ZwmImic0/giphy.gif" alt="">
+<button onclick="check1()">Далі</button>
+`);
+}
+function check1(){
+let a=document.getElementById('a1').value.trim();
+if(a==="23"){confettiBurst();after1();}
+else alert("Спробуй ще раз.");
+}
+function after1(){
+show(`
+<h2>Наші вітання, імениннице!</h2>
+<img src="https://media4.giphy.com/media/3oKIPq3lgLeAW5xnHO/giphy.gif" alt="">
+<button onclick="q2()">Далі</button>
+`);
+}
+function q2(){
+show(`
+<h2>2. Напиши свою мрію (будь-яку) — і вона збудеться.</h2>
+<input type="text" id="a2" placeholder="Твоя відповідь">
+<img src="https://media1.giphy.com/media/bEgKob9fXO8dduolWI/giphy.gif" alt="">
+<button onclick="after2()">Далі</button>
+`);
+}
+function after2(){
+confettiBurst();
+show(`
+<h2>Задуваємо свічки разом — за здійснення твоєї мрії.</h2>
+<img src="https://media1.giphy.com/media/Z06CzsCpCKOAkx7Xb3/giphy.gif" alt="">
+<button onclick="q3()">Далі</button>
+`);
+}
+function q3(){
+show(`
+<h2>3. Напиши омріяний напрямок для наступної зустрічі з нами або для поїздки в соло.</h2>
+<input type="text" id="a3" placeholder="Твоя відповідь">
+<img src="https://media0.giphy.com/media/oA6DW7rbHZ6hy/giphy.gif" alt="">
+<button onclick="after3()">Далі</button>
+`);
+}
+function after3(){
+confettiBurst();
+show(`
+<h2>О, це звучить як чудовий напрямок!</h2>
+<img src="https://media2.giphy.com/media/9rO5Aksmn0dHQKXJAu/giphy.gif" alt="">
+<button onclick="checklist()">Далі</button>
+`);
+}
+function checklist(){
+show(`
+<h2>Обери, що забираєш із собою в новий рік життя:</h2>
+<form class="checkbox-list">
+${['Кохання','Успіх','Мир','Кар’єрний зріст','Здоров’я','Натхнення','Пригоди','Стабільність','Нові знайомства','Внутрішня гармонія','Друзі']
+.map(x=>`<label><input type="checkbox"> ${x}</label>`).join('')}
+</form>
+<button onclick="q5()">Далі</button>
+`);
+}
+function q5(){
+show(`
+<h2>5. Во всєм віноват ... (4 букви)</h2>
+<p>А ось і легендарне запитання.</p>
+<input type="text" id="a5" placeholder="Твоя відповідь">
+<img src="https://media0.giphy.com/media/1vp9z2TON4U2Q/giphy.gif" alt="">
+<button onclick="check5()">Далі</button>
+`);
+}
+function check5(){
+let v=document.getElementById('a5').value.trim().toLowerCase();
+if(['ігор','игор','igor','игорь'].includes(v)) {confettiBurst(); q6();}
+else alert("Спробуй ще раз.");
+}
+function q6(){
+show(`
+<h2>6. Напій, який воняв як котячий лоток, який ми пили у Наташі вдома. (4 букви)</h2>
+<p>Тільки справжні експерти пам’ятають цей смак.</p>
+<input type="text" id="a6" placeholder="Твоя відповідь">
+<img src="https://media0.giphy.com/media/xT8petzy1xUhAkaVqw/giphy.gif" alt="">
+<button onclick="check6()">Завершити</button>
+`);
+}
+function check6(){
+let v=document.getElementById('a6').value.trim().toLowerCase();
+if(v==='вино'||v==='vino'){confettiBurst();final();}
+else alert("Ні-ні, не те.");
+}
+function final(){
+show(`
+<h2>Єєєй, Bestie! Ти пройшла весь Birthday-Quest.</h2>
+<p class="final">Сподіваємось, він був веселим і теплим.<br>
+Пам’ятай: ми завжди поруч із тобою, де б ти не була.<br>
+З днем народження!</p>
+<div class="heart">♥</div>
+<img src="https://media.giphy.com/media/26FPzWY5I6WqElJC0/giphy.gif" alt="">
+<p><a href="https://drive.google.com/drive/folders/1DoRJpEtW5JOK_crZKCBI_iwrF9lj3ddT?usp=sharing" target="_blank" style="background:#2ecc71;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:600;">Забрати подарунок</a></p>
+<button onclick="start()">Почати ще раз</button>
+`);
+}
+start();
+</script>
+</body>
+</html>
